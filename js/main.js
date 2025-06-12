@@ -7,6 +7,22 @@ let pendingQuestions = [];
 let isInMultiSelectSequence = false;
 let multiSelectProgress = 0;
 let archetype = null; 
+// Add at the top of your script
+let quizStartTime = new Date().getTime();
+let pageViewStart = new Date().getTime();
+let currentArchetype = '';
+
+// Track time on each section
+function trackSectionTime(sectionName) {
+    const timeSpent = (new Date().getTime() - pageViewStart) / 1000;
+    gtag('event', 'section_time', {
+        'section_name': sectionName,
+        'time_seconds': timeSpent,
+        'event_category': 'engagement',
+        'event_label': sectionName
+    });
+    pageViewStart = new Date().getTime(); // Reset for next section
+}
 
 // Start quiz function
 // Modified start quiz function to show demographics first
