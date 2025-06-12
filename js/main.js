@@ -297,6 +297,8 @@ function showResults() {
     archetype = calculateArchetype(scores);
     const vulnerabilities = vulnerabilityMappings[archetype.name] || [];
     const traits = archetypeTraits[archetype.name] || { description: "" };
+    const quizEndTime = new Date().getTime();
+    const quizDuration = (quizEndTime - quizStartTime) / 1000;
 
     // GA tracking (keep existing)
     if (typeof gtag !== 'undefined') {
