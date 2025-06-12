@@ -1,0 +1,151 @@
+/* quiz.css - Quiz interface and question styles */
+
+/* Question Container */
+.question-container {
+    animation: fadeIn 0.5s ease-in;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Scenario Section */
+.scenario {
+    background: linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(231, 76, 60, 0.1) 100%);
+    border: 2px solid rgba(243, 156, 18, 0.3);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    font-size: 1.2em;
+    line-height: 1.8;
+    color: #ffffff;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(243, 156, 18, 0.2);
+}
+
+.scenario::before {
+    content: "SCENARIO";
+    position: absolute;
+    top: -12px;
+    left: 30px;
+    background: #1a1a2e;
+    padding: 0 15px;
+    color: #f39c12;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Choices Section */
+.choices {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.choice {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.05em;
+    line-height: 1.6;
+}
+
+.choice:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #f39c12;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(243, 156, 18, 0.3);
+}
+
+.choice.selected {
+    background: rgba(243, 156, 18, 0.2);
+    border-color: #f39c12;
+}
+
+/* Multi-select Info */
+.multi-select-info {
+    text-align: center;
+    color: #f39c12;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Progress Indicators */
+.progress-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #f39c12, #e74c3c);
+    transition: width 0.3s ease;
+}
+
+/* Demographics Screen */
+#demographics-screen h2 {
+    text-align: center;
+    color: #f39c12;
+    margin-bottom: 30px;
+}
+
+#demographics-screen p {
+    text-align: center;
+    opacity: 0.8;
+    margin-bottom: 40px;
+}
+
+#demographics-screen label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+#demographics-screen .demographic-section {
+    margin-top: 30px;
+}
+
+#demographics-screen .next-btn {
+    margin-top: 40px;
+}
+
+/* Activity Indicator for Multi-Select */
+.activity-indicator {
+    text-align: center;
+    color: #f39c12;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .scenario {
+        padding: 20px;
+        font-size: 1em;
+    }
+
+    .choice {
+        padding: 15px;
+    }
+
+    .choices {
+        gap: 12px;
+    }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N2JZPNV27G"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-N2JZPNV27G');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toxic Attraction Pattern Quiz</title>
+
+        <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="css/results.css">
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="floating-icons">
+        <div class="floating-icon">✈️</div>
+        <div class="floating-icon">🧳</div>
+        <div class="floating-icon">💕</div>
+        <div class="floating-icon">🗺️</div>
+        <div class="floating-icon">❤️</div>
+    </div>
+
+    <section class="hero-section" id="intro-screen">
+        <div class="main-container">
+            <!-- Title Section -->
+            <div class="title-section">
+                <h1 class="main-title">Find Your Perfect Match Through an Interactive Travel Story</h1>
+                <div class="title-emojis">🧳💕</div>
+                <p class="subtitle">Here's how it works:</p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="features-grid">
+                <!-- Choose Your Own Adventure -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">📖</span>
+                        <h3 class="feature-title">Choose Your Own Adventure</h3>
+                    </div>
+                    <p class="feature-description">
+                        Navigate a couple's trip where every choice shapes your story. 
+                        
+                    </p>
+                </div>
+
+                <!-- More Than Just a Quiz -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">💘</span>
+                        <h3 class="feature-title">More Than Just a Quiz</h3>
+                    </div>
+                    <p class="feature-description">
+                        While you're making travel choices, our algorithm is finding your 
+                        ideal dating matches. Strange? Maybe. Accurate? Definitely.
+                    </p>
+                </div>
+
+                <!-- The Connection -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">🔮</span>
+                        <h3 class="feature-title">The Connection</h3>
+                    </div>
+                    <p class="feature-description">
+                        Your travel decisions reveal personality patterns that predict 
+                        exactly who you're attracted to. We use this to show you your matches.
+                    </p>
+                </div>
+
+                <!-- Fair Warning -->
+                <div class="feature-card warning-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">⚠️</span>
+                        <h3 class="feature-title">Fair Warning</h3>
+                    </div>
+                    <p class="feature-description">
+                        These aren't the dream dates you're expecting. Each match comes 
+                        with hidden red flags you probably won't see coming.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <p class="cta-question">Ready to take a trip and meet your matches?</p>
+                <button class="start-btn" onclick="startJourney()">
+                    Start Your Journey →
+                </button>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="trust-section">
+                <p>Takes 5 minutes • 100% anonymous • Surprisingly accurate</p>
+            </div>
+        </div>
+    </section>
+
+    
+        
+    <div id="demographics-screen" style="display: none;">
+        <div class="question-container">
+            <h2 style="text-align: center; color: #f39c12; margin-bottom: 30px;">Tell Us About Yourself</h2>
+            <p style="text-align: center; opacity: 0.8; margin-bottom: 40px;">This helps us provide more personalized insights</p>
+            
+            <div class="demographic-section">
+                <label style="display: block; margin-bottom: 15px; font-size: 1.1em;">What is your ethnicity?</label>
+                <select id="ethnicity-select" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: white; font-size: 1em;">
+                    <option value="">Select your ethnicity</option>
+                    <option value="asian">Asian</option>
+                    <option value="black">Black/African American</option>
+                    <option value="hispanic">Hispanic/Latino</option>
+                    <option value="white">White/Caucasian</option>
+                    <option value="middle-eastern">Middle Eastern</option>
+                    <option value="native">Native American</option>
+                    <option value="pacific-islander">Pacific Islander</option>
+                    <option value="mixed">Mixed/Multiple</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <div class="demographic-section" style="margin-top: 30px;">
+                <label style="display: block; margin-bottom: 15px; font-size: 1.1em;">What is your sexual orientation?</label>
+                <select id="orientation-select" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: white; font-size: 1em;">
+                    <option value="">Select your orientation</option>
+                    <option value="straight">Straight/Heterosexual</option>
+                    <option value="gay">Gay</option>
+                    <option value="lesbian">Lesbian</option>
+                    <option value="bisexual">Bisexual</option>
+                    <option value="pansexual">Pansexual</option>
+                    <option value="asexual">Asexual</option>
+                    <option value="queer">Queer</option>
+                    <option value="questioning">Questioning</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <button class="next-btn" onclick="startActualQuiz()" style="margin-top: 40px;">Continue to Quiz</button>
+        </div>
+    </div>
+
+    <div id="quiz-container" style="display: none;">
+        <div class="container">
+            <div id="question-content"></div>
+        </div>
+    </div>
+
+
+
+    <!-- Result Container -->
+    <div id="result-container" style="display: none;">
+        <div class="container">
+            <div id="result-content"></div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Files -->
+    <script src="js/questions.js"></script>
+    <script src="js/charactermapping.js"></script>
+    <script src="js/archetypes.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/swipe-cards.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
