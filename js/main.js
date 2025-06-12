@@ -11,6 +11,11 @@ let archetype = null;
 // Start quiz function
 // Modified start quiz function to show demographics first
 function startJourney() {
+    gtag('event', 'quiz_started', {
+        'event_category': 'quiz_flow',
+        'event_label': 'intro_screen'
+    });
+
     document.getElementById('intro-screen').style.display = 'none';
     document.getElementById('demographics-screen').style.display = 'block';
 }
@@ -69,6 +74,20 @@ function startActualQuiz() {
     // Hide demographics screen and show quiz
     document.getElementById('demographics-screen').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
+
+        // Track demographic submission
+    gtag('event', 'demographics_submitted', {
+        'ethnicity': ethnicity,
+        'orientation': orientation,
+        'event_category': 'quiz_flow',
+        'event_label': 'demographics_complete'
+    });
+    
+    // Also set as user properties (be careful with PII)
+    gtag('set', 'user_properties', {
+        'quiz_ethnicity': ethnicity,
+        'quiz_orientation': orientation
+    });
     
     // Reset quiz state and start
     initializeQuiz()
@@ -80,6 +99,14 @@ function startActualQuiz() {
 function showQuestion(questionId) {
     const question = questions[questionId];
     const container = document.getElementById('question-content');
+
+        // Track question view
+    gtag('event', 'question_viewed', {
+        'question_id': questionId,
+        'question_type': question.multiSelect ? 'multi_select' : 'single_select',
+        'event_category': 'quiz_flow',
+        'event_label': `question_${questionId}`
+    });
     
     let html = `<div class="question-container">`;
     
@@ -113,6 +140,16 @@ function showQuestion(questionId) {
 function selectChoice(questionId, choiceIndex) {
     const question = questions[questionId];
     const choice = question.choices[choiceIndex];
+    
+    // Track choice selection
+    gtag('event', 'answer_selected', {
+        'question_id': questionId,
+        'choice_index': choiceIndex,
+        'choice_text': choice.text.substring(0, 50), // First 50 chars
+        'event_category': 'quiz_engagement',
+        'event_label': `q${questionId}_choice${choiceIndex}`
+    });
+
     const choiceElements = document.querySelectorAll('.choice');
     
     if (question.multiSelect) {
@@ -268,17 +305,17 @@ function showResults() {
             'emotional_score': scores.emotional,
             'logical_score': scores.logical,
             'exploratory_score': scores.exploratory,
-            'harmony_seeking': scores.harmony_seeking,
-            'control_need': scores.control_need,
-            'nurture_focus': scores.nurture_focus,
-            'idealistic': scores.idealistic,
-            'achievement_drive': scores.achievement_drive,
-            'analytical': scores.analytical,
-            'authority_response': scores.authority_response,
-            'independence': scores.independence,
+            'total_score': scores.emotional + scores.logical + scores.exploratory,
             'ethnicity': demographics.ethnicity,
-            'orientation': demographics.orientation
-        });
+            'orientation': demographics.orientation,
+            'completion_time_seconds': quizDuration,
+            'number_of_matches': vulnerabilities.length,
+            
+            // Categories
+            'event_category': 'quiz_completion',
+            'event_label': archetype.name,
+            'value': 1 // Completion value for conversion tracking
+            });
     }
     document.body.classList.add('results-page');
     document.getElementById('quiz-container').style.display = 'none';
@@ -678,3 +715,16 @@ function debugCheckResults() {
         }
     }
 }
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('primary-cta')) {
+        gtag('event', 'cta_clicked', {
+            'cta_type': 'primary',
+            'cta_text': e.target.textContent,
+            'cta_destination': e.target.href,
+            'user_archetype': currentArchetype, // Store this globally
+            'event_category': 'conversion',
+            'event_label': 'ai_coach_cta'
+        });
+    }
+});
