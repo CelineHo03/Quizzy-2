@@ -939,6 +939,23 @@
         let pendingQuestions = [];
         let isInMultiSelectSequence = false;
         let multiSelectProgress = 0;
+        // Add at the top of your script
+        let quizStartTime = new Date().getTime();
+        let pageViewStart = new Date().getTime();
+        let currentArchetype = '';
+
+        // Track time on each section
+        function trackSectionTime(sectionName) {
+            const timeSpent = (new Date().getTime() - pageViewStart) / 1000;
+            gtag('event', 'section_time', {
+                'section_name': sectionName,
+                'time_seconds': timeSpent,
+                'event_category': 'engagement',
+                'event_label': sectionName
+            });
+            pageViewStart = new Date().getTime(); // Reset for next section
+        }
+
 
         // Start quiz function
         // Modified start quiz function to show demographics first
@@ -962,7 +979,20 @@
             // Store the values (you can use these later)
             demographics.ethnicity = ethnicity;
             demographics.orientation = orientation;
+
+            gtag('event', 'demographics_submitted', {
+                'ethnicity': ethnicity,
+                'orientation': orientation,
+                'event_category': 'quiz_flow',
+                'event_label': 'demographics_complete'
+            });
             
+            // Also set as user properties (be careful with PII)
+            gtag('set', 'user_properties', {
+                'quiz_ethnicity': ethnicity,
+                'quiz_orientation': orientation
+            });
+                    
             // Hide demographics screen and show quiz
             document.getElementById('demographics-screen').style.display = 'none';
             document.getElementById('quiz-container').style.display = 'block';
@@ -983,6 +1013,13 @@
         function showQuestion(questionId) {
             const question = questions[questionId];
             const container = document.getElementById('question-content');
+            
+            gtag('event', 'question_viewed', {
+                'question_id': questionId,
+                'question_type': question.multiSelect ? 'multi_select' : 'single_select',
+                'event_category': 'quiz_flow',
+                'event_label': `question_${questionId}`
+            });
             
             let html = `<div class="question-container">`;
             
@@ -1016,6 +1053,14 @@
         function selectChoice(questionId, choiceIndex) {
             const question = questions[questionId];
             const choice = question.choices[choiceIndex];
+            // Track choice selection
+            gtag('event', 'answer_selected', {
+                'question_id': questionId,
+                'choice_index': choiceIndex,
+                'choice_text': choice.text.substring(0, 50), // First 50 chars
+                'event_category': 'quiz_engagement',
+                'event_label': `q${questionId}_choice${choiceIndex}`
+            });
             const choiceElements = document.querySelectorAll('.choice');
             
             if (question.multiSelect) {
@@ -1122,25 +1167,32 @@
             const vulnerabilities = vulnerabilityMappings[archetype.name] || [];
             const traits = archetypeTraits[archetype.name] || { description: "" };
             
-            // ADD THIS IF CHECK for safety:
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'quiz_completed', {
-                    'archetype': archetype.name,
-                    'emotional_score': scores.emotional,
-                    'logical_score': scores.logical,
-                    'exploratory_score': scores.exploratory,
-                    'ethnicity': demographics.ethnicity,
-                    'orientation': demographics.orientation
-                });
-
-                // Track which toxic patterns they saw
-                vulnerabilities.forEach(vuln => {
-                    gtag('event', 'toxic_pattern_shown', {
-                        'pattern_type': vuln.title,
-                        'archetype': archetype.name
-                    });
-                });
-            }
+            // Calculate completion time
+            const quizEndTime = new Date().getTime();
+            const quizDuration = (quizEndTime - quizStartTime) / 1000; // in seconds
+            
+            // Comprehensive completion tracking
+            gtag('event', 'quiz_completed', {
+                // User Properties
+                'ethnicity': demographics.ethnicity,
+                'orientation': demographics.orientation,
+                
+                // Quiz Results
+                'archetype_result': archetype.name,
+                'emotional_score': scores.emotional,
+                'logical_score': scores.logical,
+                'exploratory_score': scores.exploratory,
+                'total_score': scores.emotional + scores.logical + scores.exploratory,
+                
+                // Engagement Metrics
+                'completion_time_seconds': quizDuration,
+                'number_of_matches': vulnerabilities.length,
+                
+                // Categories
+                'event_category': 'quiz_completion',
+                'event_label': archetype.name,
+                'value': 1 // Completion value for conversion tracking
+            });  
 
             document.getElementById('quiz-container').style.display = 'none';
             document.getElementById('result-container').style.display = 'block';
@@ -1210,8 +1262,9 @@
             html += `</div>`;
             
             document.getElementById('result-content').innerHTML = html;
-        }
         
+            }
+
         // Flip card function
         function flipCard(card) {
             card.classList.toggle('flipped');
@@ -1236,10 +1289,24 @@
         
         // Find this section in showResults():
 
-// Show scores continues here...
+    // Show scores continues here...
         // Restart quiz function
         function restartQuiz() {
             document.getElementById('result-container').style.display = 'none';
             document.getElementById('intro-screen').style.display = 'block';
         }
+        // Track CTA clicks
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('primary-cta')) {
+            gtag('event', 'cta_clicked', {
+                'cta_type': 'primary',
+                'cta_text': e.target.textContent,
+                'cta_destination': e.target.href,
+                'user_archetype': currentArchetype, // Store this globally
+                'event_category': 'conversion',
+                'event_label': 'ai_coach_cta'
+            });
+        }
+    });
     </script>
+    
