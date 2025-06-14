@@ -34,9 +34,9 @@
         <div class="main-container">
             <!-- Title Section -->
             <div class="title-section">
-                <h1 class="main-title">Find Your Perfect Match Through an Interactive Travel Story</h1>
-                <div class="title-emojis">🧳💕</div>
-                <p class="subtitle">Here's how it works:</p>
+                <h1 class="main-title">Which Disney Character Is Your Perfect Match</h1>
+                <div class="title-emojis"></div>
+                <p class="subtitle">"Your travel choices reveal more than you think..."</p>
             </div>
 
             <!-- Features Grid -->
@@ -45,11 +45,10 @@
                 <div class="feature-card">
                     <div class="feature-header">
                         <span class="feature-icon">📖</span>
-                        <h3 class="feature-title">Choose Your Own Adventure</h3>
+                        <h3 class="feature-title">Quick Travel Quiz</h3>
                     </div>
                     <p class="feature-description">
-                        Navigate a couple's trip where every choice shapes your story. 
-                        
+                        Answer simple questions about your ideal vacation. Your travel style reveals your Disney match in just 5 minutes.
                     </p>
                 </div>
 
@@ -84,15 +83,14 @@
                         <h3 class="feature-title">Fair Warning</h3>
                     </div>
                     <p class="feature-description">
-                        These aren't the dream dates you're expecting. Each match comes 
-                        with hidden red flags you probably won't see coming.
+                        Not all Disney matches are fairy tale endings. Sometimes the magic mirror shows truths we didn't expect. Are you ready to see who you really attract?
                     </p>
                 </div>
             </div>
 
-            <!-- CTA Section -->
-            <div class="cta-section">
-                <p class="cta-question">Ready to take a trip and meet your matches?</p>
+             <!-- CTA Section -->
+             <div class="cta-section">
+                <p class="cta-question">Ready to meet your Disney match?</p>
                 <button class="start-btn" onclick="startJourney()">
                     Start Your Journey →
                 </button>
@@ -100,12 +98,10 @@
 
             <!-- Trust Indicators -->
             <div class="trust-section">
-                <p>Takes 5 minutes • 100% anonymous • Surprisingly accurate</p>
+                <p>No email required • 100% anonymous • Surprisingly revealing</p>
             </div>
         </div>
     </section>
-
-    
         
     <div id="demographics-screen" style="display: none;">
         <div class="question-container">
@@ -152,11 +148,29 @@
 
     <div id="quiz-container" style="display: none;">
         <div class="container">
+        <!-- Progress Bar -->
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-content">
+                    <div class="progress-header">
+                        <span class="progress-counter">
+                            <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span>
+                        </span>
+                    </div>
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar-fill" id="progressFill" style="width: 10%;">
+                            <div class="progress-bar-glow"></div>
+                        </div>
+                    </div>
+                    <div class="progress-milestones">
+                        <span class="milestone active" data-milestone="1">Start</span>
+                        <span class="milestone" data-milestone="11">Reveal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
             <div id="question-content"></div>
         </div>
     </div>
-
-
 
     <!-- Result Container -->
     <div id="result-container" style="display: none;">
@@ -164,7 +178,6 @@
             <div id="result-content"></div>
         </div>
     </div>
-
 
     <!-- JavaScript Files -->
     <script src="js/questions.js"></script>
