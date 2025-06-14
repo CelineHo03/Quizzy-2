@@ -7,22 +7,10 @@ let pendingQuestions = [];
 let isInMultiSelectSequence = false;
 let multiSelectProgress = 0;
 let archetype = null; 
-// Add at the top of your script
+let questionCount = 0;
+const totalEstimatedQuestions = 11; // Since it's branching, this is an estimate
 let quizStartTime = new Date().getTime();
 let pageViewStart = new Date().getTime();
-let currentArchetype = '';
-
-// Track time on each section
-function trackSectionTime(sectionName) {
-    const timeSpent = (new Date().getTime() - pageViewStart) / 1000;
-    gtag('event', 'section_time', {
-        'section_name': sectionName,
-        'time_seconds': timeSpent,
-        'event_category': 'engagement',
-        'event_label': sectionName
-    });
-    pageViewStart = new Date().getTime(); // Reset for next section
-}
 
 // Start quiz function
 // Modified start quiz function to show demographics first
@@ -113,6 +101,9 @@ function startActualQuiz() {
 
 // Show question function
 function showQuestion(questionId) {
+    questionCount++;
+    updateProgressBar();
+    
     const question = questions[questionId];
     const container = document.getElementById('question-content');
 
@@ -150,6 +141,30 @@ function showQuestion(questionId) {
     container.innerHTML = html;
     selectedChoices.clear();
     multiSelectNexts = [];
+}
+
+function updateProgressBar() {
+    // Update counter
+    document.getElementById('currentQuestion').textContent = questionCount;
+    document.getElementById('totalQuestions').textContent = totalEstimatedQuestions;
+    
+    // Update progress bar fill
+    const progress = (questionCount / totalEstimatedQuestions) * 100;
+    document.getElementById('progressFill').style.width = `${Math.min(progress, 100)}%`;
+    
+    // Update milestones
+    const milestones = document.querySelectorAll('.milestone');
+    milestones.forEach(milestone => {
+        const milestoneNum = parseInt(milestone.dataset.milestone);
+        if (questionCount >= milestoneNum) {
+            milestone.classList.add('completed');
+        }
+        if (questionCount === milestoneNum) {
+            milestone.classList.add('active');
+        } else {
+            milestone.classList.remove('active');
+        }
+    });
 }
 
 // Select choice function
@@ -313,6 +328,7 @@ function showResults() {
     archetype = calculateArchetype(scores);
     const vulnerabilities = vulnerabilityMappings[archetype.name] || [];
     const traits = archetypeTraits[archetype.name] || { description: "" };
+
     const quizEndTime = new Date().getTime();
     const quizDuration = (quizEndTime - quizStartTime) / 1000;
 
@@ -745,4 +761,4 @@ document.addEventListener('click', function(e) {
             'event_label': 'ai_coach_cta'
         });
     }
-});
+})
