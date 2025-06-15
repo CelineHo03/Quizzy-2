@@ -12,7 +12,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toxic Attraction Pattern Quiz</title>
+    <title>Interactive Travel Quiz</title>
     <style>
         * {
             margin: 0;
@@ -20,10 +20,8 @@
             box-sizing: border-box;
         }
 
-        .question-container,
-        .intro {
-            max-width: 800px;
-            margin: 0 auto;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -31,61 +29,240 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #ffffff;
             min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            line-height: 1.6;
+            position: relative;
         }
 
-        .container {
+        /* Main Container */
+        .main-container, .container {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 1200px;
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 800px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 10;
+            margin: 0 auto;
         }
-        
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+            font-family: Georgia, serif;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(243, 156, 18, 0.3);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            font-size: 1.5em;
+        }
+
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #f39c12;
+        }
+
+        .feature-description {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Warning Card */
+        .warning-card {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+            animation: pulse 3s infinite;
+        }
+
+        .warning-card .feature-title {
+            color: #e74c3c;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-question {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: Georgia, serif;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .start-btn, .next-btn {
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.3);
+            display: block;
+            margin: 30px auto 0;
+        }
+
+        .start-btn:hover, .next-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(247, 158, 15, 0.5);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Trust Section */
+        .trust-section {
+            margin-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9em;
+        }
+
+        /* Demographics Section */
         .demographic-section {
             margin-bottom: 25px;
         }
 
-        select option {
+        .demographic-section label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .demographic-section select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1em;
+        }
+
+        .demographic-section select option {
             background: #1a1a2e;
             color: white;
         }
 
-        select:focus {
+        .demographic-section select:focus {
             outline: none;
             border-color: #f39c12;
             box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
         }
 
-
-        h1 {
-            text-align: center;
+        /* Progress Bar */
+        .progress-container {
             margin-bottom: 30px;
-            font-size: 2.5em;
-            background: linear-gradient(45deg, #f39c12, #e74c3c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            text-align: center;
         }
 
-        .intro {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 1.1em;
-            opacity: 0.9;
+        .progress-counter {
+            color: #f39c12;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
         }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        /* Question Container */
         .question-container {
             animation: fadeIn 0.5s ease-in;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Scenario Section */
@@ -150,12 +327,6 @@
             border-color: #f39c12;
         }
 
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .multi-select-info {
             text-align: center;
             color: #f39c12;
@@ -163,32 +334,12 @@
             font-weight: bold;
         }
 
-        .next-btn {
-            background: linear-gradient(45deg, #f39c12, #e74c3c);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-size: 1.1em;
-            cursor: pointer;
-            display: block;
-            margin: 30px auto 0;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-
-        .next-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.4);
-        }
-
-        .next-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
+        /* Results */
         .result-container {
             animation: fadeIn 0.8s ease-in;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .personality-intro {
@@ -204,7 +355,6 @@
             font-size: 1.2em;
             line-height: 1.8;
             margin-bottom: 20px;
-            animation: fadeIn 1s ease-in;
         }
 
         .warning-text {
@@ -215,33 +365,7 @@
             animation: pulse 2s infinite;
         }
 
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        .swipe-hint {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 20px;
-            font-size: 0.9em;
-            animation: fadeIn 1s ease-in 2s forwards;
-            opacity: 0;
-        }
-
-        .character-card:not(.flipped):hover .card-inner {
-            transform: translateY(-10px);
-            transition: transform 0.3s;
-        }
-
-        .character-card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .character-card:hover {
-            z-index: 10;
-        }
-
+        /* Cards */
         .cards-container {
             display: flex;
             gap: 30px;
@@ -249,22 +373,6 @@
             justify-content: center;
             flex-wrap: wrap;
             max-width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .cards-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .character-card {
-                width: 100%;
-                max-width: 350px;
-            }
-            
-            .container {
-                padding: 20px;
-            }
         }
 
         .character-card {
@@ -341,12 +449,6 @@
             border-radius: 30px;
             font-weight: bold;
             font-size: 1.1em;
-            animation: blink 2s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
         }
 
         .card-title {
@@ -415,134 +517,210 @@
             margin-bottom: 5px;
         }
 
-        .defense-tip {
-            background: rgba(46, 204, 113, 0.1);
-            border: 2px solid rgba(46, 204, 113, 0.3);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-container, .container {
+                padding: 40px 25px;
+            }
+
+            .main-title {
+                font-size: 2em;
+            }
+
+            .feature-card {
+                padding: 25px;
+            }
+
+            .feature-title {
+                font-size: 1.1em;
+            }
+
+            .start-btn, .next-btn {
+                padding: 15px 40px;
+                font-size: 1.1em;
+            }
+
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .character-card {
+                width: 100%;
+                max-width: 350px;
+            }
         }
 
-        .defense-tip strong {
-            color: #2ecc71;
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.1em;
+        /* Hide sections by default */
+        .hidden {
+            display: none !important;
         }
 
-        .scores {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .score-item {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .score-label {
+        /* Status indicator for Google Sheets */
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
             font-size: 0.9em;
-            opacity: 0.8;
-            margin-bottom: 5px;
+            z-index: 1000;
+            display: none;
         }
 
-        .score-value {
-            font-size: 2em;
-            font-weight: bold;
-            color: #f39c12;
-        }
-
-        .restart-btn {
-            background: rgba(255, 255, 255, 0.1);
+        .status-success {
+            background: rgba(46, 204, 113, 0.9);
             color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-size: 1.1em;
-            cursor: pointer;
-            display: block;
-            margin: 30px auto 0;
-            transition: all 0.3s ease;
         }
 
-        .restart-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #f39c12;
+        .status-error {
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+        }
+
+        .status-info {
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="intro-screen">
-            <h1>Swipe Right on Red Flags?</h1>
-            <div class="intro">
-                <p>If fictional villains had dating profiles, which ones would make your heart skip? Take a journey through romantic scenarios to discover your villain type—from charming manipulators to mysterious bad boys</p>
-                <p style="margin-top: 15px; opacity: 0.8;">Your choices will reveal more than you think...</p>
-            </div>
-            <button class="next-btn" onclick="startQuiz()">Begin Your Journey</button>
-        </div>
+    <!-- Status Indicator -->
+    <div id="status-indicator" class="status-indicator"></div>
 
-        <div id="demographics-screen" style="display: none;">
-            <div class="question-container">
-                <h2 style="text-align: center; color: #f39c12; margin-bottom: 30px;">Tell Us About Yourself</h2>
-                <p style="text-align: center; opacity: 0.8; margin-bottom: 40px;">This helps us provide more personalized insights</p>
-                
-                <div class="demographic-section">
-                    <label style="display: block; margin-bottom: 15px; font-size: 1.1em;">What is your ethnicity?</label>
-                    <select id="ethnicity-select" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: white; font-size: 1em;">
-                        <option value="">Select your ethnicity</option>
-                        <option value="asian">Asian</option>
-                        <option value="black">Black/African American</option>
-                        <option value="hispanic">Hispanic/Latino</option>
-                        <option value="white">White/Caucasian</option>
-                        <option value="middle-eastern">Middle Eastern</option>
-                        <option value="native">Native American</option>
-                        <option value="pacific-islander">Pacific Islander</option>
-                        <option value="mixed">Mixed/Multiple</option>
-                        <option value="other">Other</option>
-                        <option value="prefer-not">Prefer not to say</option>
-                    </select>
+    <!-- Intro Screen -->
+    <section class="hero-section" id="intro-screen">
+        <div class="main-container">
+            <div class="title-section">
+                <h1 class="main-title">Find Your Perfect Match Through an Interactive Travel Story</h1>
+                <p class="subtitle">"Your travel choices reveal more than you think..."</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">📖</span>
+                        <h3 class="feature-title">Choose Your Own Adventure</h3>
+                    </div>
+                    <p class="feature-description">
+                        Navigate a couple's trip where every choice shapes your story. 
+                        Your decisions create different paths and endings.
+                    </p>
                 </div>
-                
-                <div class="demographic-section" style="margin-top: 30px;">
-                    <label style="display: block; margin-bottom: 15px; font-size: 1.1em;">What is your sexual orientation?</label>
-                    <select id="orientation-select" style="width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: white; font-size: 1em;">
-                        <option value="">Select your orientation</option>
-                        <option value="straight">Straight/Heterosexual</option>
-                        <option value="gay">Gay</option>
-                        <option value="lesbian">Lesbian</option>
-                        <option value="bisexual">Bisexual</option>
-                        <option value="pansexual">Pansexual</option>
-                        <option value="asexual">Asexual</option>
-                        <option value="queer">Queer</option>
-                        <option value="questioning">Questioning</option>
-                        <option value="other">Other</option>
-                        <option value="prefer-not">Prefer not to say</option>
-                    </select>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">💘</span>
+                        <h3 class="feature-title">More Than Just a Quiz</h3>
+                    </div>
+                    <p class="feature-description">
+                        While you're making travel choices, our algorithm is finding your 
+                        ideal dating matches. Strange? Maybe. Accurate? Definitely.
+                    </p>
                 </div>
-                
-                <button class="next-btn" onclick="startActualQuiz()" style="margin-top: 40px;">Continue to Quiz</button>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">🔮</span>
+                        <h3 class="feature-title">The Connection</h3>
+                    </div>
+                    <p class="feature-description">
+                        Your travel decisions reveal personality patterns that predict 
+                        exactly who you're attracted to. We use this to show you your matches.
+                    </p>
+                </div>
+
+                <div class="feature-card warning-card">
+                    <div class="feature-header">
+                        <span class="feature-icon">⚠️</span>
+                        <h3 class="feature-title">Fair Warning</h3>
+                    </div>
+                    <p class="feature-description">
+                        These aren't the dream dates you're expecting. Each match comes 
+                        with hidden red flags you probably won't see coming.
+                    </p>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <p class="cta-question">Ready to take a trip and meet your matches?</p>
+                <button class="start-btn" onclick="startJourney()">
+                    Start Your Journey →
+                </button>
+            </div>
+
+            <div class="trust-section">
+                <p>Takes 5 minutes • 100% anonymous • Surprisingly accurate</p>
             </div>
         </div>
+    </section>
 
-        <div id="quiz-container" style="display: none;">
+    <!-- Demographics Screen -->
+    <div id="demographics-screen" class="hidden">
+        <div class="container">
+            <h2 style="text-align: center; color: #f39c12; margin-bottom: 30px;">Tell Us About Yourself</h2>
+            <p style="text-align: center; opacity: 0.8; margin-bottom: 40px;">This helps us provide more personalized insights</p>
+            
+            <div class="demographic-section">
+                <label>What is your ethnicity?</label>
+                <select id="ethnicity-select">
+                    <option value="">Select your ethnicity</option>
+                    <option value="asian">Asian</option>
+                    <option value="black">Black/African American</option>
+                    <option value="hispanic">Hispanic/Latino</option>
+                    <option value="white">White/Caucasian</option>
+                    <option value="middle-eastern">Middle Eastern</option>
+                    <option value="native">Native American</option>
+                    <option value="pacific-islander">Pacific Islander</option>
+                    <option value="mixed">Mixed/Multiple</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <div class="demographic-section">
+                <label>What is your sexual orientation?</label>
+                <select id="orientation-select">
+                    <option value="">Select your orientation</option>
+                    <option value="straight">Straight/Heterosexual</option>
+                    <option value="gay">Gay</option>
+                    <option value="lesbian">Lesbian</option>
+                    <option value="bisexual">Bisexual</option>
+                    <option value="pansexual">Pansexual</option>
+                    <option value="asexual">Asexual</option>
+                    <option value="queer">Queer</option>
+                    <option value="questioning">Questioning</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <button class="next-btn" onclick="startActualQuiz()">Continue to Quiz</button>
+        </div>
+    </div>
+        
+    <!-- Quiz Container -->
+    <div id="quiz-container" class="hidden">
+        <div class="container">
+            <div class="progress-container">
+                <span class="progress-counter">
+                    Question <span id="currentQuestion">1</span> of <span id="totalQuestions">11</span>
+                </span>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar-fill" id="progressFill" style="width: 9%;"></div>
+                </div>
+            </div>
             <div id="question-content"></div>
         </div>
+    </div>    
 
-        <div id="result-container" style="display: none;">
-            <div id="result-content"></div>
-        </div>
+    <!-- Result Container -->
+    <div id="result-container" class="hidden">
+        <div id="result-content"></div>
     </div>
 
     <script>
-        // Quiz data structure with complete questions
+        // Quiz data structure with ALL original questions
         const questions = {
             "1": {
                 scenario: "First you need to decide on your travel itinerary. How many days do you want your trip to be?",
@@ -762,15 +940,15 @@
         const archetypes = [
             { name: "Intellectual", logical: 9, emotional: 2, exploratory: 6 },
             { name: "Achiever", logical: 8, emotional: 4, exploratory: 5 },
-            { name: "Leader", logical: 7, emotional: 6, exploratory: 5 },
+            { name: "Leader", logical: 7, emotional: 5, exploratory: 6 },
             { name: "Explorer", logical: 3, emotional: 5, exploratory: 10 },
             { name: "Rebel", logical: 4, emotional: 6, exploratory: 9 },
-            { name: "Peacemaker", logical: 5, emotional: 8, exploratory: 2 },
+            { name: "Peacemaker", logical: 5, emotional: 7, exploratory: 3 },
             { name: "Dreamer", logical: 2, emotional: 9, exploratory: 8 },
             { name: "Caregiver", logical: 3, emotional: 10, exploratory: 2 }
         ];
 
-        // Vulnerability mappings
+        // Vulnerability mappings (your complete original data)
         const vulnerabilityMappings = {
             "Achiever": [
                 { 
@@ -778,8 +956,14 @@
                     characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
                     why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
                     plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera.",
-                    punchline: "You met Loki. Thought it was love. It was a plot twist."
+                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
+                },
+                {
+                    title: "THE WALKING TED TALK",
+                    characters: ["Tony Stark", "Light Yagami", "Sherlock Holmes", "Grand Admiral Thrawn"],
+                    why: "You love brilliance. You're drawn to people who seem like they have all the answers.",
+                    plotTwist: "They're not sharing wisdom. They're building a fanbase with you as audience #1.",
+                    blindSpot: "You confuse charisma with character. Intelligence ≠ emotional safety."
                 }
             ],
             "Intellectual": [
@@ -788,16 +972,14 @@
                     characters: ["Tony Stark", "Light Yagami", "Sherlock Holmes", "Grand Admiral Thrawn"],
                     why: "You love brilliance. You're drawn to people who seem like they have all the answers.",
                     plotTwist: "They're not sharing wisdom. They're building a fanbase with you as audience #1.",
-                    blindSpot: "You confuse charisma with character. Intelligence ≠ emotional safety.",
-                    punchline: "You thought you met a genius. You met a god complex in a hoodie."
+                    blindSpot: "You confuse charisma with character. Intelligence ≠ emotional safety."
                 },
                 {
-                    title: "THE CHARMING MANIPULATOR",
-                    characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
-                    why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
-                    plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera.",
-                    punchline: "You met Loki. Thought it was love. It was a plot twist."
+                    title: "THE RULEBOOK ROMANTIC",
+                    characters: ["Captain Holt", "Coach Carter", "Major Kuldeep Singh", "Captain Levi"],
+                    why: "You love structure. Rules make you feel safe. And when they say 'discipline is love'—you believe it.",
+                    plotTwist: "It's not structure. It's control dressed up in duty.",
+                    blindSpot: "You mistake rigidity for reliability. But love shouldn't feel like a training camp."
                 }
             ],
             "Leader": [
@@ -806,16 +988,14 @@
                     characters: ["Gustavo Fring", "Logan Roy", "Erwin Smith", "Severus Snape"],
                     why: "You like confidence, control, and people who take charge. You think they're strong enough to protect you—and maybe fix you too.",
                     plotTwist: "They're not protecting you. They're managing you.",
-                    blindSpot: "You confuse intensity for safety. But control isn't care.",
-                    punchline: "You saw leadership. Turns out, it was just domination in a nice coat."
+                    blindSpot: "You confuse intensity for safety. But control isn't care."
                 },
                 {
                     title: "THE DANGEROUS CHARMER",
                     characters: ["Damon Salvatore", "Chuck Bass", "James Bond", "Casanova"],
                     why: "They're smooth, magnetic, and just the right amount of broken. You love the rush.",
                     plotTwist: "They don't want connection. They want conquest.",
-                    blindSpot: "You think you're the exception. You're actually chapter 12.",
-                    punchline: "You called it chemistry. They called it Tuesday."
+                    blindSpot: "You think you're the exception. You're actually chapter 12."
                 }
             ],
             "Explorer": [
@@ -824,16 +1004,14 @@
                     characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
                     why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
                     plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera.",
-                    punchline: "You met Loki. Thought it was love. It was a plot twist."
+                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
                 },
                 {
                     title: "THE ICEBERG",
                     characters: ["Mr. Darcy", "Don Draper", "Batman", "Gojo Satoru"],
                     why: "You love mystery. You want someone who's deep, calm, and hard to reach.",
                     plotTwist: "They're not deep. They're just not showing up.",
-                    blindSpot: "You think still waters run deep. But these waters never text back.",
-                    punchline: "You fell for the mystery. Turns out it was just absence."
+                    blindSpot: "You think still waters run deep. But these waters never text back."
                 }
             ],
             "Rebel": [
@@ -842,25 +1020,7 @@
                     characters: ["Tony Stark", "Light Yagami", "Sherlock Holmes", "Grand Admiral Thrawn"],
                     why: "You love brilliance. You're drawn to people who seem like they have all the answers.",
                     plotTwist: "They're not sharing wisdom. They're building a fanbase with you as audience #1.",
-                    blindSpot: "You confuse charisma with character. Intelligence ≠ emotional safety.",
-                    punchline: "You thought you met a genius. You met a god complex in a hoodie."
-                },
-                {
-                    title: "THE DANGEROUS CHARMER",
-                    characters: ["Damon Salvatore", "Chuck Bass", "James Bond", "Casanova"],
-                    why: "They're smooth, magnetic, and just the right amount of broken. You love the rush.",
-                    plotTwist: "They don't want connection. They want conquest.",
-                    blindSpot: "You think you're the exception. You're actually chapter 12.",
-                    punchline: "You called it chemistry. They called it Tuesday."
-                }
-            ],
-            "Peacemaker": [
-                {
-                    title: "THE RULEBOOK ROMANTIC",
-                    characters: ["Captain Holt", "Coach Carter", "Major Kuldeep Singh", "Captain Levi"],
-                    why: "You love structure. Rules make you feel safe. And when they say 'discipline is love'—you believe it.",
-                    plotTwist: "It's not structure. It's control dressed up in duty.",
-                    blindSpot: "You mistake rigidity for reliability. But love shouldn't feel like a training camp."
+                    blindSpot: "You confuse charisma with character. Intelligence ≠ emotional safety."
                 },
                 {
                     title: "THE DANGEROUS CHARMER",
@@ -868,6 +1028,29 @@
                     why: "They're smooth, magnetic, and just the right amount of broken. You love the rush.",
                     plotTwist: "They don't want connection. They want conquest.",
                     blindSpot: "You think you're the exception. You're actually chapter 12."
+                }
+            ],
+            "Peacemaker": [
+                {
+                    title: "THE DANGEROUS CHARMER",
+                    characters: ["Damon Salvatore", "Chuck Bass", "James Bond", "Casanova"],
+                    why: "They're smooth, magnetic, and just the right amount of broken. You love the rush.",
+                    plotTwist: "They don't want connection. They want conquest.",
+                    blindSpot: "You think you're the exception. You're actually chapter 12."
+                },
+                {
+                    title: "THE POWERHOUSE PARTNER",
+                    characters: ["Gustavo Fring", "Logan Roy", "Erwin Smith", "Severus Snape"],
+                    why: "You like confidence, control, and people who take charge. You think they're strong enough to protect you—and maybe fix you too.",
+                    plotTwist: "They're not protecting you. They're managing you.",
+                    blindSpot: "You confuse intensity for safety. But control isn't care."
+                },
+                {
+                    title: "THE CHARMING MANIPULATOR",
+                    characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
+                    why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
+                    plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
+                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
                 }
             ],
             "Dreamer": [
@@ -884,6 +1067,13 @@
                     why: "They say all the right things. Future vacations, babies, matching tattoos—you melt.",
                     plotTwist: "They dream big, but disappear when it's time to act.",
                     blindSpot: "You confuse words with plans. Dreams with dates."
+                },
+                {
+                    title: "THE POWERHOUSE PARTNER",
+                    characters: ["Gustavo Fring", "Logan Roy", "Erwin Smith", "Severus Snape"],
+                    why: "You like confidence, control, and people who take charge. You think they're strong enough to protect you—and maybe fix you too.",
+                    plotTwist: "They're not protecting you. They're managing you.",
+                    blindSpot: "You confuse intensity for safety. But control isn't care."
                 }
             ],
             "Caregiver": [
@@ -892,7 +1082,7 @@
                     characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
                     why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
                     plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera.",
+                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
                 },
                 {
                     title: "THE TRAGIC HERO",
@@ -931,6 +1121,11 @@
                 description: "You have an inherent desire to care for and nurture others, often putting their needs before your own. You're deeply empathetic and attuned to others' emotions and needs. You exhibit genuine concern for others' welfare and are often involved in helping activities. You show deep compassion and understanding, especially towards those in need. Others see you as reliable and dependable, often turning to you for emotional and practical support."
             }
         };
+
+        // Google Sheets Configuration
+        const GOOGLE_SHEETS_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjiBKES8_p2rxoHHICJz_4q7d_ZMq1uH3usPZq_WFyh6uWEXRLShVhdiLDRrByW863iVBelKyJJm4pwTTdbRhjfIaH8In-Fjqo1mZKsp_0Q6uPwwuvRxvXfZGzqHBeaJfhONx2vznqmyOev14KgixKtsThDtlwiU-MqOmhmz7cl1aCBqocU2yZCsT-GwWe1-CzR40cWMfDBPifvcfHNjrYMF1jrbKTJYKSiy8HAUiavyUo6VTY3MUx_hsIQeHw5rkfJ7ZD80yV71rs7LKugX-WiA0rHNg&lib=Mc53eWp5feOjt_zaJMhTVTMcsi1E5Ab0i';
+
+        // Quiz state variables
         let demographics = { ethnicity: '', orientation: '' };
         let currentQuestion = "1";
         let scores = { emotional: 0, logical: 0, exploratory: 0 };
@@ -939,36 +1134,116 @@
         let pendingQuestions = [];
         let isInMultiSelectSequence = false;
         let multiSelectProgress = 0;
-        // Add at the top of your script
-        let quizStartTime = new Date().getTime();
-        let pageViewStart = new Date().getTime();
-        let currentArchetype = '';
+        let questionCount = 0;
+        const totalEstimatedQuestions = 11;
 
-        // Track time on each section
-        function trackSectionTime(sectionName) {
-            const timeSpent = (new Date().getTime() - pageViewStart) / 1000;
-            gtag('event', 'section_time', {
-                'section_name': sectionName,
-                'time_seconds': timeSpent,
-                'event_category': 'engagement',
-                'event_label': sectionName
-            });
-            pageViewStart = new Date().getTime(); // Reset for next section
+        // Google Sheets Integration Functions
+        async function saveDemographicsToSheets(demographicsData, quizResults = null) {
+            try {
+                showStatus('Saving data...', 'info');
+                
+                const payload = {
+                    timestamp: new Date().toISOString(),
+                    sessionId: generateSessionId(),
+                    ethnicity: demographicsData.ethnicity,
+                    orientation: demographicsData.orientation,
+                    // Quiz results (if completed)
+                    archetype: quizResults?.archetype || '',
+                    emotionalScore: quizResults?.emotional || 0,
+                    logicalScore: quizResults?.logical || 0,
+                    exploratoryScore: quizResults?.exploratory || 0,
+                    userAgent: navigator.userAgent,
+                    referrer: document.referrer
+                };
+
+                console.log('Sending data to Google Sheets:', payload);
+
+                const response = await fetch(GOOGLE_SHEETS_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('✅ Successfully saved to Google Sheets:', result);
+                showStatus('Data saved successfully!', 'success');
+                return result;
+                
+            } catch (error) {
+                console.error('❌ Error saving to Google Sheets:', error);
+                showStatus('Data save failed - continuing anyway', 'error');
+                // Store locally as backup
+                saveToLocalBackup(demographicsData, quizResults);
+                throw error;
+            }
         }
 
-
-        // Start quiz function
-        // Modified start quiz function to show demographics first
-        function startQuiz() {
-            document.getElementById('intro-screen').style.display = 'none';
-            document.getElementById('demographics-screen').style.display = 'block';
+        // Helper functions
+        function generateSessionId() {
+            return 'quiz_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
         }
 
-        // New function to store demographics and start the actual quiz
-        function startActualQuiz() {
+        function saveToLocalBackup(demographicsData, quizResults) {
+            try {
+                let backupData = JSON.parse(localStorage.getItem('quiz_backup') || '[]');
+                backupData.push({
+                    timestamp: new Date().toISOString(),
+                    ethnicity: demographicsData.ethnicity,
+                    orientation: demographicsData.orientation,
+                    archetype: quizResults?.archetype || '',
+                    scores: quizResults || {}
+                });
+                localStorage.setItem('quiz_backup', JSON.stringify(backupData));
+                console.log('💾 Saved to local backup');
+            } catch (e) {
+                console.error('Could not save backup:', e);
+            }
+        }
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status-indicator');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-indicator status-${type}`;
+            statusDiv.style.display = 'block';
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Main Quiz Functions
+        function startJourney() {
+            console.log('Starting journey...');
+            
+            // Track with Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'quiz_started', {
+                    'event_category': 'quiz_flow',
+                    'event_label': 'intro_screen'
+                });
+            }
+
+            // Hide intro screen, show demographics
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('demographics-screen').classList.remove('hidden');
+        }
+
+        // Start actual quiz function
+        async function startActualQuiz() {
+            console.log('Starting actual quiz...');
+            
             // Get the selected values
             const ethnicity = document.getElementById('ethnicity-select').value;
             const orientation = document.getElementById('orientation-select').value;
+            
+            console.log('Selected values:', { ethnicity, orientation });
             
             // Check if both are selected
             if (!ethnicity || !orientation) {
@@ -976,26 +1251,37 @@
                 return;
             }
             
-            // Store the values (you can use these later)
+            // Store the values
             demographics.ethnicity = ethnicity;
             demographics.orientation = orientation;
+            console.log('Demographics stored:', demographics);
 
-            gtag('event', 'demographics_submitted', {
-                'ethnicity': ethnicity,
-                'orientation': orientation,
-                'event_category': 'quiz_flow',
-                'event_label': 'demographics_complete'
-            });
-            
-            // Also set as user properties (be careful with PII)
-            gtag('set', 'user_properties', {
-                'quiz_ethnicity': ethnicity,
-                'quiz_orientation': orientation
-            });
+            // Try to save to Google Sheets (non-blocking)
+            try {
+                await saveDemographicsToSheets(demographics);
+                console.log('Demographics saved successfully!');
+            } catch (error) {
+                console.log('Failed to save demographics, but continuing with quiz');
+            }
+
+            // Track with Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'demographics_submitted', {
+                    'ethnicity': ethnicity,
+                    'orientation': orientation,
+                    'event_category': 'quiz_flow',
+                    'event_label': 'demographics_complete'
+                });
+                
+                gtag('set', 'user_properties', {
+                    'quiz_ethnicity': ethnicity,
+                    'quiz_orientation': orientation
+                });
+            }
                     
             // Hide demographics screen and show quiz
-            document.getElementById('demographics-screen').style.display = 'none';
-            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('demographics-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
             
             // Reset quiz state and start
             currentQuestion = "1";
@@ -1005,21 +1291,35 @@
             pendingQuestions = [];
             isInMultiSelectSequence = false;
             multiSelectProgress = 0;
+            questionCount = 0;
             
             showQuestion(currentQuestion);
-        }   
+        }
 
         // Show question function
         function showQuestion(questionId) {
+            console.log('Showing question:', questionId);
+            
+            questionCount++;
+            updateProgressBar();
+            
             const question = questions[questionId];
+            if (!question) {
+                console.error('Question not found:', questionId);
+                return;
+            }
+            
             const container = document.getElementById('question-content');
             
-            gtag('event', 'question_viewed', {
-                'question_id': questionId,
-                'question_type': question.multiSelect ? 'multi_select' : 'single_select',
-                'event_category': 'quiz_flow',
-                'event_label': `question_${questionId}`
-            });
+            // Track question view
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'question_viewed', {
+                    'question_id': questionId,
+                    'question_type': question.multiSelect ? 'multi_select' : 'single_select',
+                    'event_category': 'quiz_flow',
+                    'event_label': `question_${questionId}`
+                });
+            }
             
             let html = `<div class="question-container">`;
             
@@ -1047,20 +1347,36 @@
             container.innerHTML = html;
             selectedChoices.clear();
             multiSelectNexts = [];
+            
+            console.log('Question displayed successfully');
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = (questionCount / totalEstimatedQuestions) * 100;
+            document.getElementById('currentQuestion').textContent = questionCount;
+            document.getElementById('totalQuestions').textContent = totalEstimatedQuestions;
+            document.getElementById('progressFill').style.width = `${Math.min(progress, 100)}%`;
         }
 
         // Select choice function
         function selectChoice(questionId, choiceIndex) {
+            console.log('Choice selected:', questionId, choiceIndex);
+            
             const question = questions[questionId];
             const choice = question.choices[choiceIndex];
+            
             // Track choice selection
-            gtag('event', 'answer_selected', {
-                'question_id': questionId,
-                'choice_index': choiceIndex,
-                'choice_text': choice.text.substring(0, 50), // First 50 chars
-                'event_category': 'quiz_engagement',
-                'event_label': `q${questionId}_choice${choiceIndex}`
-            });
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'answer_selected', {
+                    'question_id': questionId,
+                    'choice_index': choiceIndex,
+                    'choice_text': choice.text.substring(0, 50),
+                    'event_category': 'quiz_engagement',
+                    'event_label': `q${questionId}_choice${choiceIndex}`
+                });
+            }
+            
             const choiceElements = document.querySelectorAll('.choice');
             
             if (question.multiSelect) {
@@ -1087,6 +1403,8 @@
 
         // Next question function
         function nextQuestion() {
+            console.log('Moving to next question...');
+            
             const question = questions[currentQuestion];
             let nextQuestionId = null;
             
@@ -1104,6 +1422,8 @@
                     nextQuestionId = choice.next;
                 }
             });
+            
+            console.log('Current scores:', scores);
             
             // Handle multi-select navigation
             if (question.multiSelect && multiSelectNexts.length > 0) {
@@ -1130,6 +1450,8 @@
                     nextQuestionId = question.choices[choiceIndex].next;
                 }
             }
+            
+            console.log('Next question ID:', nextQuestionId);
             
             if (nextQuestionId === "end" || !questions[nextQuestionId]) {
                 showResults();
@@ -1161,116 +1483,125 @@
         }
 
         // Show results
-
-        function showResults() {
+        async function showResults() {
+            console.log('Showing results...');
+            
             const archetype = calculateArchetype();
             const vulnerabilities = vulnerabilityMappings[archetype.name] || [];
             const traits = archetypeTraits[archetype.name] || { description: "" };
             
-            // Calculate completion time
-            const quizEndTime = new Date().getTime();
-            const quizDuration = (quizEndTime - quizStartTime) / 1000; // in seconds
+            console.log('Archetype:', archetype);
+            console.log('Vulnerabilities:', vulnerabilities);
             
-            // Comprehensive completion tracking
-            gtag('event', 'quiz_completed', {
-                // User Properties
-                'ethnicity': demographics.ethnicity,
-                'orientation': demographics.orientation,
-                
-                // Quiz Results
-                'archetype_result': archetype.name,
-                'emotional_score': scores.emotional,
-                'logical_score': scores.logical,
-                'exploratory_score': scores.exploratory,
-                'total_score': scores.emotional + scores.logical + scores.exploratory,
-                
-                // Engagement Metrics
-                'completion_time_seconds': quizDuration,
-                'number_of_matches': vulnerabilities.length,
-                
-                // Categories
-                'event_category': 'quiz_completion',
-                'event_label': archetype.name,
-                'value': 1 // Completion value for conversion tracking
-            });  
+            // Save final results to Google Sheets (non-blocking)
+            try {
+                await saveDemographicsToSheets(demographics, {
+                    archetype: archetype.name,
+                    emotional: scores.emotional,
+                    logical: scores.logical,
+                    exploratory: scores.exploratory
+                });
+            } catch (error) {
+                console.log('Failed to save final results, but showing results anyway');
+            }
 
-            document.getElementById('quiz-container').style.display = 'none';
-            document.getElementById('result-container').style.display = 'block';
+            // Track completion
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'quiz_completed', {
+                    'ethnicity': demographics.ethnicity,
+                    'orientation': demographics.orientation,
+                    'archetype_result': archetype.name,
+                    'emotional_score': scores.emotional,
+                    'logical_score': scores.logical,
+                    'exploratory_score': scores.exploratory,
+                    'total_score': scores.emotional + scores.logical + scores.exploratory,
+                    'number_of_matches': vulnerabilities.length,
+                    'event_category': 'quiz_completion',
+                    'event_label': archetype.name,
+                    'value': 1
+                });
+            }
+
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
             
-            let html = `<div class="result-container">`;
-            
-            // Show personalized description with intro
-            html += `<div class="personality-intro">`;
-            html += `<p class="personality-text">${traits.description}</p>`;
-            html += `<p class="warning-text">⚠️ WARNING: Toxic Attraction Patterns Detected</p>`;
-            html += `</div>`;
-
-
-            // Cards container
-            html += `<div class="cards-container">`;
+            let html = `
+                <div class="result-container">
+                    <div class="personality-intro">
+                        <p class="personality-text">${traits.description}</p>
+                        <p class="warning-text">⚠️ WARNING: Toxic Attraction Patterns Detected</p>
+                    </div>
+                    
+                    <div class="cards-container">
+            `;
             
             // Generate cards for each vulnerability
             vulnerabilities.forEach((vuln, index) => {
-                // Calculate a match percentage (based on scores for variety)
                 const matchPercentage = 70 + Math.floor((scores.emotional + scores.logical + scores.exploratory + index * 5) % 20);
                 
-                html += `<div class="character-card" onclick="flipCard(this)">`;
-                html += `<div class="card-inner">`;
+                html += `
+                    <div class="character-card" onclick="flipCard(this)">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="match-percentage">${matchPercentage}% MATCH</div>
+                                <h3 class="card-title">${vuln.title}</h3>
+                                <div class="character-avatars">
+                `;
                 
-                // Front of card (dating profile style)
-                html += `<div class="card-front">`;
-                html += `<div class="match-percentage">${matchPercentage}% MATCH</div>`;
-                html += `<h3 class="card-title">${vuln.title}</h3>`;
-                html += `<div class="character-avatars">`;
                 vuln.characters.forEach(char => {
                     html += `<span class="avatar">${char}</span>`;
                 });
-                html += `</div>`;
-                html += `<p class="attraction-text">"${vuln.why}"</p>`;
-                html += `<div class="click-to-flip">Click to reveal the truth →</div>`;
-                html += `</div>`;
                 
-                // Back of card (the dark truth)
-                html += `<div class="card-back">`;
-                html += `<h3 class="card-title" style="color: #e74c3c;">🚩 RED FLAGS 🚩</h3>`;
-                html += `<div class="red-flags">`;
-                html += `<div class="red-flag"><strong>The Plot Twist:</strong> ${vuln.plotTwist}</div>`;
-                html += `<div class="red-flag"><strong>Your Blind Spot:</strong> ${vuln.blindSpot}</div>`;
-                html += `</div>`;
-                html += `</div>`; 
-                html += `</div>`;
-                html += `</div>`;
+                html += `
+                                </div>
+                                <p class="attraction-text">"${vuln.why}"</p>
+                                <div class="click-to-flip">Click to reveal the truth →</div>
+                            </div>
+                            
+                            <div class="card-back">
+                                <h3 class="card-title" style="color: #e74c3c;">🚩 RED FLAGS 🚩</h3>
+                                <div class="red-flags">
+                                    <div class="red-flag"><strong>The Plot Twist:</strong> ${vuln.plotTwist}</div>
+                                    <div class="red-flag"><strong>Your Blind Spot:</strong> ${vuln.blindSpot}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             });
             
-            html += `</div>`;
-            
-            html += `<p class="swipe-hint">Click each card to reveal the hidden truth</p>`;
-            
-            // Add protection summary
-            html += `<div style="background: rgba(46, 204, 113, 0.1); border: 2px solid rgba(46, 204, 113, 0.3); padding: 30px; border-radius: 15px; margin: 40px auto; max-width: 600px; text-align: center;">`;
-            html += `<h3 style="color: #2ecc71; margin-bottom: 15px;">💚 Your Protection Protocol</h3>`;
-            html += `<p>${getGeneralProtectionTip(archetype.name)}</p>`;
-            html += `</div>`;
-
-            // Next step
-            html += `<div style="text-align: center; margin: 30px 0;">`;
-            html += `<h3 style="color: #f39c12; margin-bottom: 20px;">Wait... does someone in your life remind you of these characters? Our AI Relationship Coach can analyze your relationship patterns and reveal if you're already living this story...</h3>`;
-            html += `<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">`;
-            html += `<a href="https://6848340aa0a2233a0e0a63e9--partner-assessment-tool.netlify.app/" style="background: linear-gradient(45deg, #f39c12, #e74c3c); color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: bold;">Talk to Our Relationship Coach</a>`;
-            html += `<a href=" https://tally.so/r/w8gx25" style="background: rgba(255, 255, 255, 0.1); color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; display: inline-block; border: 2px solid rgba(255, 255, 255, 0.3);">Give Feedback</a>`;
-            html += `</div>`;
-            html += `</div>`;
+            html += `
+                    </div>
+                    
+                    <p style="text-align: center; color: rgba(255, 255, 255, 0.6); margin-top: 20px; font-size: 0.9em;">
+                        Click each card to reveal the hidden truth
+                    </p>
+                    
+                    <div style="background: rgba(46, 204, 113, 0.1); border: 2px solid rgba(46, 204, 113, 0.3); padding: 30px; border-radius: 15px; margin: 40px auto; max-width: 600px; text-align: center;">
+                        <h3 style="color: #2ecc71; margin-bottom: 15px;">💚 Your Protection Protocol</h3>
+                        <p>${getGeneralProtectionTip(archetype.name)}</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <h3 style="color: #f39c12; margin-bottom: 20px;">Wait... does someone in your life remind you of these characters? Our AI Relationship Coach can analyze your relationship patterns and reveal if you're already living this story...</h3>
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                            <a href="https://6848340aa0a2233a0e0a63e9--partner-assessment-tool.netlify.app/" style="background: linear-gradient(45deg, #f39c12, #e74c3c); color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: bold;">Talk to Our Relationship Coach</a>
+                            <a href="https://tally.so/r/w8gx25" style="background: rgba(255, 255, 255, 0.1); color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; display: inline-block; border: 2px solid rgba(255, 255, 255, 0.3);">Give Feedback</a>
+                        </div>
+                    </div>
+                </div>
+            `;
             
             document.getElementById('result-content').innerHTML = html;
-        
-            }
+            
+            console.log('Results displayed successfully');
+        }
 
-        // Flip card function
+        // Helper functions
         function flipCard(card) {
             card.classList.toggle('flipped');
         }
         
-        // Get defense tips based on toxic type
         function getGeneralProtectionTip(archetypeName) {
             const tips = {
                 "Intellectual": "Trust your emotions as much as your mind. Red flag: Anyone who dismisses your feelings as 'illogical'.",
@@ -1286,27 +1617,34 @@
             return tips[archetypeName] || "Trust your instincts. If something feels off, it probably is.";
         }
 
-        
-        // Find this section in showResults():
-
-    // Show scores continues here...
-        // Restart quiz function
-        function restartQuiz() {
-            document.getElementById('result-container').style.display = 'none';
-            document.getElementById('intro-screen').style.display = 'block';
-        }
         // Track CTA clicks
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('primary-cta')) {
-            gtag('event', 'cta_clicked', {
-                'cta_type': 'primary',
-                'cta_text': e.target.textContent,
-                'cta_destination': e.target.href,
-                'user_archetype': currentArchetype, // Store this globally
-                'event_category': 'conversion',
-                'event_label': 'ai_coach_cta'
-            });
-        }
-    });
+        document.addEventListener('click', function(e) {
+            if (e.target.href && e.target.href.includes('partner-assessment-tool')) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'cta_clicked', {
+                        'cta_type': 'primary',
+                        'cta_text': e.target.textContent,
+                        'cta_destination': e.target.href,
+                        'user_archetype': calculateArchetype()?.name || 'unknown',
+                        'event_category': 'conversion',
+                        'event_label': 'ai_coach_cta'
+                    });
+                }
+            }
+        });
+
+        // Console logging for debugging
+        console.log('Quiz script loaded successfully');
+        console.log('Available functions:', {
+            startJourney: typeof startJourney,
+            startActualQuiz: typeof startActualQuiz,
+            showQuestion: typeof showQuestion,
+            selectChoice: typeof selectChoice,
+            nextQuestion: typeof nextQuestion,
+            showResults: typeof showResults,
+            saveDemographicsToSheets: typeof saveDemographicsToSheets
+        });
+        console.log('Google Sheets URL configured:', GOOGLE_SHEETS_URL ? 'Yes' : 'No');
     </script>
-    
+</body>
+</html>
