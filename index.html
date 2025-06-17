@@ -1874,20 +1874,173 @@
         }
 
         // Track CTA clicks
+        document.removeEventListener('click', arguments.callee);
+
         document.addEventListener('click', function(e) {
-            if (e.target.href && e.target.href.includes('partner-assessment-tool')) {
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'cta_clicked', {
-                        'cta_type': 'primary',
-                        'cta_text': e.target.textContent,
-                        'cta_destination': e.target.href,
-                        'user_archetype': calculateArchetype()?.name || 'unknown',
+            console.log('👆 Document click detected on:', e.target.tagName, e.target);
+            
+            // Find the actual link element
+            let clickedLink = null;
+            
+            // Check if the clicked element is a link
+            if (e.target.tagName === 'A') {
+                clickedLink = e.target;
+            } 
+            // Check if the clicked element is inside a link
+            else if (e.target.closest('a')) {
+                clickedLink = e.target.closest('a');
+            }
+            
+            // If no link found, exit
+            if (!clickedLink || !clickedLink.href) {
+                console.log('👆 Not a link click, ignoring');
+                return;
+            }
+            
+            console.log('🔗 Link click detected:', {
+                href: clickedLink.href,
+                text: clickedLink.textContent.trim(),
+                tagName: clickedLink.tagName
+            });
+            
+            // Check if it's the chatbot link
+            if (clickedLink.href.includes('partner-assessment-tool')) {
+                console.log('🤖 CHATBOT LINK CLICKED! Starting tracking...');
+                
+                try {
+                    // Get user archetype safely
+                    let userArchetype = 'unknown';
+                    try {
+                        if (typeof calculateArchetype === 'function') {
+                            const archetypeResult = calculateArchetype();
+                            userArchetype = archetypeResult?.name || 'unknown';
+                            console.log('✅ Got archetype:', userArchetype);
+                        } else {
+                            console.warn('⚠️ calculateArchetype function not available');
+                        }
+                    } catch (err) {
+                        console.warn('⚠️ Error getting archetype:', err);
+                    }
+                    
+                    // Get demographics safely
+                    let userEthnicity = 'unknown';
+                    let userOrientation = 'unknown';
+                    try {
+                        if (typeof demographics !== 'undefined' && demographics) {
+                            userEthnicity = demographics.ethnicity || 'unknown';
+                            userOrientation = demographics.orientation || 'unknown';
+                            console.log('✅ Got demographics:', { userEthnicity, userOrientation });
+                        } else {
+                            console.warn('⚠️ Demographics not available');
+                        }
+                    } catch (err) {
+                        console.warn('⚠️ Error getting demographics:', err);
+                    }
+                    
+                    // Prepare event data
+                    const eventData = {
                         'event_category': 'conversion',
-                        'event_label': 'ai_coach_cta'
+                        'event_label': 'ai_coach_cta',
+                        'value': 1,  // Important: number, not string
+                        'cta_type': 'primary',
+                        'cta_text': clickedLink.textContent.trim(),
+                        'cta_destination': clickedLink.href,
+                        'user_archetype': userArchetype,
+                        'user_ethnicity': userEthnicity,
+                        'user_orientation': userOrientation,
+                        'timestamp': new Date().toISOString()
+                    };
+                    
+                    console.log('📊 Prepared event data:', eventData);
+                    
+                    // Send to Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        console.log('📤 Sending to Google Analytics...');
+                        gtag('event', 'cta_clicked', eventData);
+                        console.log('✅ GA4 event sent successfully!');
+                        
+                        // Also send as conversion for better tracking
+                        gtag('event', 'conversion', {
+                            'send_to': 'G-N2JZPNV27G',
+                            'value': 1,
+                            'currency': 'USD',
+                            'transaction_id': 'cta_' + Date.now()
+                        });
+                        console.log('✅ Conversion event sent!');
+                        
+                    } else {
+                        console.error('❌ gtag function not available!');
+                    }
+                    
+                    // Show visual confirmation
+                    if (typeof showStatus === 'function') {
+                        showStatus('🎯 Click tracked successfully!', 'success');
+                    }
+                    
+                    // Log successful tracking
+                    console.log('🎉 CTA CLICK TRACKING COMPLETE!', {
+                        timestamp: new Date().toISOString(),
+                        archetype: userArchetype,
+                        demographics: { userEthnicity, userOrientation },
+                        destination: clickedLink.href
                     });
+                    
+                } catch (error) {
+                    console.error('❌ Error in CTA click tracking:', error);
                 }
             }
-        });
+            
+            // Track feedback clicks too
+            else if (clickedLink.href.includes('tally.so')) {
+                console.log('📝 Feedback link clicked');
+                
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'feedback_clicked', {
+                        'event_category': 'engagement',
+                        'event_label': 'feedback_form',
+                        'value': 1,
+                        'cta_type': 'secondary'
+                    });
+                    console.log('✅ Feedback click tracked');
+                }
+            }
+            
+            else {
+                console.log('🔗 Other link clicked:', clickedLink.href);
+            }
+            
+        }, true); // Use capture phase to ensure we catch the event
+
+        // Test function to verify the listener is working
+        window.testClickListener = function() {
+            console.log('🧪 Testing click listener...');
+            
+            const chatbotLink = document.querySelector('a[href*="partner-assessment-tool"]');
+            if (!chatbotLink) {
+                console.error('❌ No chatbot link found');
+                return false;
+            }
+            
+            console.log('🔗 Found chatbot link:', chatbotLink.href);
+            
+            // Create a proper click event
+            const clickEvent = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                detail: 1
+            });
+            
+            console.log('🎯 Dispatching click event...');
+            chatbotLink.dispatchEvent(clickEvent);
+            
+            console.log('✅ Click event dispatched - check console for tracking logs');
+            return true;
+        };
+
+        console.log('✅ Working click listener installed!');
+        console.log('🧪 Run testClickListener() to test it right now');
+        console.log('🔗 Or just click the "Talk to Our Relationship Coach" button');
 
         // Console logging for debugging
         console.log('Quiz script loaded successfully');
