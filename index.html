@@ -15,7 +15,7 @@
     <title>Interactive Travel Quiz</title>
     <style>
         * {
-            margin: 0;
+            margin: -2;
             padding: 0;
             box-sizing: border-box;
         }
@@ -26,7 +26,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(#fff5f5 0%, rgba(0, 13, 255, 0.22) 100%);
+            background: linear-gradient(rgb(0 158 255 / 11%) 0%, rgb(0 175 255 / 7%) 100%);
             color: #000000;
             min-height: 100vh;
             line-height: 1.6;
@@ -267,8 +267,8 @@
 
         /* Scenario Section */
         .scenario {
-            background: linear-gradient(135deg, rgb(255 255 255 / 10%) 0%, #eee2ff 100%);
-            border: 2px solid #cca8ca;
+            background: linear-gradient(180deg, rgb(254 224 224 / 10%) 0%, rgb(249 217 225 / 3%) 100%);
+            border: 2px solid #775675;
             padding: 30px;
             border-radius: 20px;
             margin-bottom: 40px;
@@ -303,13 +303,14 @@
         }
 
         .choice.selected {
-            background: rgb(247 110 123 / 11%);
-            border-color: #ff9dab;
+            background: rgba(110, 183, 247, 0.11);
+            border-color: #6691ff;
         }
+        
 
         .choice {
-            background: rgb(255 255 255 / 0%);
-            border: 2px solid rgb(252 127 127 / 41%);
+            background: rgb(87 167 247 / 0%);
+            border: 2px solid rgb(76 167 255 / 41%);
             padding: 25px;
             border-radius: 15px;
             cursor: pointer;
@@ -322,9 +323,9 @@
 
         .choice:hover {
             background: rgba(255, 255, 255, 0.15);
-            border-color: #ff9dab;
+            border-color: #6691ff;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(208, 143, 255, 0.3);
+            box-shadow: 0 5px 20px rgba(156, 203, 253, 0.3);
         }
 
         .element.style {
@@ -336,7 +337,7 @@
 
         .multi-select-info {
             text-align: center;
-            color: rgb(142 51 201 / 53%);
+            color: rgba(255, 131, 164, 0.53);
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -350,8 +351,8 @@
         }
 
         .personality-intro {
-            background: rgb(212 223 255 / 73%);
-            border: 2px solid #cfcbff;
+            background: rgb(205 230 255 / 73%);
+            border: 2px solid #8bb0be;
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 30px;
@@ -437,34 +438,35 @@
         }
 
         .card-front {
-            background: linear-gradient(358deg, #e97e7e40 0%, #277dff17 100%);
-            border: 2px solid rgb(246 166 166 / 30%);
+            background: linear-gradient(358deg, #d1e7fe40 0%, #277dff17 100%);
+            border: 2px solid rgba(49, 122, 146, 0.3);
         }
 
         .card-back {
             background: linear-gradient(135deg, #7b3636 0%, #5a2f2f 100%);
-            border: 2px solid #f86d6d;
+            border: 2px solid #c11818;
             transform: rotateY(180deg);
         }
 
         .match-percentage {
             position: absolute;
-            top: 1px;
-            right: 1px;
-            background: rgba(231, 76, 60, 0.9);
+            top: 5px;
+            right: 5px;
+            background: rgba(226, 10, 10, 0.796);
             color: white;
-            padding: 5px 9px;
-            border-radius: 30px;
+            padding: 4px 6px;
+            border-radius: 70px;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
         .card-title {
             font-size: 1.5em;
-            color: #e88896;
+            color: #e97f8f;
             margin-bottom: 20px;
+            margin-top: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .character-avatars {
@@ -476,11 +478,11 @@
         }
 
         .avatar {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
+            background: rgb(153 176 255 / 30%);
+            padding: 9px 15px;
             border-radius: 20px;
-            font-size: 0.9em;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8em;
+            border: 1px solid rgb(80 111 171 / 20%);
         }
 
         .attraction-text {
@@ -688,7 +690,7 @@
         }
 
         .toxic-title {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            background: linear-gradient(45deg, #f13d3d, #bc2121);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -696,7 +698,7 @@
         }
 
         .toxic-header .section-subtitle {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(15, 14, 14, 0.9);
             font-weight: 600;
         }
 
@@ -840,6 +842,23 @@
                     <option value="native">Native American</option>
                     <option value="pacific-islander">Pacific Islander</option>
                     <option value="mixed">Mixed/Multiple</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not">Prefer not to say</option>
+                </select>
+            </div>
+
+            <div class="demographic-section">   
+                <label>What is your gender identity?</label>
+                <select id="gender-select">
+                    <option value="">Select your gender identity</option>
+                    <option value="man">Man</option>
+                    <option value="woman">Woman</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="genderfluid">Genderfluid</option>
+                    <option value="transgender-man">Transgender man</option>
+                    <option value="transgender-woman">Transgender woman</option>
+                    <option value="agender">Agender</option>
+                    <option value="two-spirit">Two-Spirit</option>
                     <option value="other">Other</option>
                     <option value="prefer-not">Prefer not to say</option>
                 </select>
@@ -1115,158 +1134,199 @@
             { name: "Caregiver", logical: 3, emotional: 10, exploratory: 2 }
         ];
 
-        // Vulnerability mappings (your complete original data)
-        const vulnerabilityMappings = {
-            "Achiever": [
-                { 
-                    title: "THE PUPPET MASTER",
-                    characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula","Jafar"],
-                    why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
-                    plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You mistake their manipulation for strategic brilliance. You think you can 'win' this relationship like a project, but they're playing a game you don't even know exists."
-                },
-                {
-                    title: "MASTER OF EVERYTHING",
-                    characters: ["Dr.Strange", "Light Yagami", "Sherlock Holmes", "Grand Admiral Thrawn"],
-                    why: "You love brilliance. You're drawn to people who seem like they have all the answers.",
-                    plotTwist: "They're not sharing wisdom. They're building a fanbase with you as audience #1.",
-                    blindSpot: "You think you're networking with a valuable contact who could boost your career. Actually, you're just feeding their ego while they use your ambition for their own validation."
-                }
-            ],
-            "Intellectual": [
-                {
-                    title: "MASTER OF EVERYTHING",
-                    characters: ["Dr.Strange", "Light Yagami", "Sherlock Holmes", "Grand Admiral Thrawn"],
+
+                // Character sets organized by gender preference and orientation
+        const characterSets = {
+            // For straight males (attracted to women)
+            "male_straight": {
+                "WALKING_TED_TALK": [, "Lisa Simpson", "Paris Geller"],
+                "RULEBOOK_ROMANTIC": ["Dolores Umbridge", "Miranda Priestly", "Mother Gothel", "Emily Gilmore", "Nurse Ratched"],
+                "POWERHOUSE_PARTNER": ["Miranda Priestly", "Queen of Hearts", "Maleficent", "Cersei Lannister", "Annalise Keating"],
+                "ICEBERG": ["Elsa", "Black Widow", "Wednesday Addams", "Rey"],
+                "THE_PUPPET_MASTER": ["Jennifer (Jennifer's Body)", "Mystique", "Siren","Catwoman", "Katherine Pierce"],
+                "CASTLE_BUILDER": ["Ursula", "Mother Gothel", "Ariel", "Carrie Bradshaw", "Charlotte York"],
+                "TRAGIC_HERO": ["Bella Swan", "Hannah Baker", "Jinx", "Marianne", "Ophelia"],
+                "THE_ADDICT": ['Jinx', 'Bellatrix Lestrange',"Harley Quinn"]
+            },
+            
+            // For straight females (attracted to men)
+            "female_straight": {
+                "WALKING_TED_TALK": ["Tony Stark", "Sherlock Holmes", "Light Yagami", "Dr. House", "Spencer Reid"],
+                "RULEBOOK_ROMANTIC": ["Captain Holt", "Coach Carter", "Captain Levi", "Jordan Peterson", "Gordon Ramsay"],
+                "POWERHOUSE_PARTNER": ["Gustavo Fring", "Logan Roy", "Tywin Lannister", "Harvey Specter", "Frank Underwood"],
+                "THE_PUPPET_MASTER": ["Damon Salvatore", "Chuck Bass", "James Bond", "Loki", "Klaus Mikaelson"],
+                "ICEBERG": ["Mr. Darcy", "Don Draper", "Batman", "Gojo Satoru", "Edward Cullen"],
+                "CASTLE_BUILDER": ["Ted Mosby", "Nate", "Christian", "Noah (Notebook)", "Jack (Titanic)"],
+                "TRAGIC_HERO": ["BoJack Horseman", "Peeta Mellark", "Severus Snape", "Kylo Ren", "Edward Cullen"],
+                "THE_ADDICT": ['Joker', 'Jack Sparrow', 'Deadpool','The Mad Hatter']
+            },
+            
+            // For gay males (attracted to men)
+            "male_gay": {
+                "WALKING_TED_TALK": ["Tony Stark", "Sherlock Holmes", "Spencer Reid", "Dr. House", "Hannibal Lecter"],
+                "RULEBOOK_ROMANTIC": ["Captain Holt", "Captain America", "Soldier 76", "Coach Carter", "Gordon Ramsay"],
+                "POWERHOUSE_PARTNER": ["Gustavo Fring", "Logan Roy", "Harvey Specter", "Tywin Lannister", "Frank Underwood"],
+                "THE_PUPPET_MASTER": ["Damon Salvatore", "Chuck Bass", "James Bond", "Loki", "Klaus Mikaelson"],
+                "ICEBERG": ["Batman", "Mr. Darcy", "Don Draper", "Gojo Satoru", "Kylo Ren"],
+                "CASTLE_BUILDER": ["Ted Mosby", "Noah (Notebook)", "Prince Eric", "Flynn Rider", "Kristoff"],
+                "TRAGIC_HERO": ["BoJack Horseman", "Kylo Ren", "Severus Snape", "Peeta Mellark", "Bucky Barnes"],
+                "THE_ADDICT": ['Joker', 'Jack Sparrow', 'Deadpool','The Mad Hatter']
+            },
+            
+            // For lesbians (attracted to women)
+            "female_lesbian": {
+                "WALKING_TED_TALK": ["Hermione Granger", "Belle", "Lisa Simpson", "Amy Santiago", "Paris Geller"],
+                "RULEBOOK_ROMANTIC": ["Miranda Priestly", "Captain Janeway", "Dolores Umbridge", "Mother Gothel", "Emily Gilmore"],
+                "POWERHOUSE_PARTNER": ["Claire Underwood", "Miranda Priestly", "Maleficent", "Cersei Lannister", "Shiv Roy"],
+                "THE_PUPPET_MASTER": ["Jennifer (Jennifer's Body)", "Mystique", "Siren","Catwoman", "Katherine Pierce"],
+                "ICEBERG": ["Elsa", "Black Widow", "Katniss Everdeen", "Rey", "Arya Stark"],
+                "CASTLE_BUILDER": ["Anna", "Aurora", "Ariel", "Carrie Bradshaw", "Emma Bovary"],
+                "TRAGIC_HERO": ["Bella Swan", "Rue Bennett", "Hannah Baker", "Marianne", "Ophelia"],
+                "THE_ADDICT": ['Jinx', 'Bellatrix Lestrange',"Harley Quinn"]
+            },
+            
+            // For bisexual users (mix of both)
+            "bisexual": {
+                "WALKING_TED_TALK": ["Hermione Granger", "Tony Stark", "Belle", "Sherlock Holmes", "Lisa Simpson"],
+                "RULEBOOK_ROMANTIC": ["Miranda Priestly", "Captain Holt", "Dolores Umbridge", "Coach Carter", "Captain Janeway"],
+                "POWERHOUSE_PARTNER": ["Claire Underwood", "Gustavo Fring", "Miranda Priestly", "Logan Roy", "Maleficent"],
+                "THE_PUPPET_MASTER": ["Catwoman", "Damon Salvatore", "Mystique", "Siren", "Klaus Mikaelson", "Loki"],
+                "ICEBERG": ["Elsa", "Batman", "Black Widow", "Mr. Darcy", "Katniss Everdeen"],
+                "CASTLE_BUILDER": ["Anna", "Ted Mosby", "Aurora", "Noah (Notebook)", "Ariel"],
+                "TRAGIC_HERO": ["Bella Swan", "BoJack Horseman", "Rue Bennett", "Kylo Ren", "Hannah Baker"],
+                "THE_ADDICT": ['Jinx', 'Bellatrix Lestrange',"Harley Quinn","Joker",'Jack Sparrow']
+            },
+            
+            // Default fallback (mixed characters)
+            "default": {
+                "WALKING_TED_TALK": ["Hermione Granger", "Tony Stark", "Belle", "Sherlock Holmes", "Lisa Simpson"],
+                "RULEBOOK_ROMANTIC": ["Miranda Priestly", "Captain Holt", "Dolores Umbridge", "Coach Carter", "Captain Janeway"],
+                "POWERHOUSE_PARTNER": ["Claire Underwood", "Gustavo Fring", "Miranda Priestly", "Logan Roy", "Maleficent"],
+                "THE_PUPPET_MASTER": ["Catwoman", "Damon Salvatore", "Mystique", "Siren", "Klaus Mikaelson", "Loki"],
+                "ICEBERG": ["Elsa", "Batman", "Black Widow", "Mr. Darcy", "Katniss Everdeen"],
+                "CASTLE_BUILDER": ["Anna", "Ted Mosby", "Aurora", "Noah (Notebook)", "Ariel"],
+                "TRAGIC_HERO": ["Bella Swan", "BoJack Horseman", "Rue Bennett", "Kylo Ren", "Hannah Baker"],
+                "THE_ADDICT": ['Jinx', 'Bellatrix Lestrange',"Harley Quinn",'Joker','Jack Sparrow']
+            }
+        };
+
+        // Function to determine character set based on demographics
+        function getCharacterSet(gender, orientation) {
+            console.log(`Getting character set for: ${gender}, ${orientation}`);
+            
+            // Handle different orientation inputs
+            const normalizedOrientation = orientation.toLowerCase();
+            
+            // Create demographic key
+            let demographicKey;
+            
+            if (gender === 'man' && (normalizedOrientation === 'straight' || normalizedOrientation === 'heterosexual')) {
+                demographicKey = 'male_straight';
+            } else if (gender === 'woman' && (normalizedOrientation === 'straight' || normalizedOrientation === 'heterosexual')) {
+                demographicKey = 'female_straight';
+            } else if (gender === 'man' && normalizedOrientation === 'gay') {
+                demographicKey = 'male_gay';
+            } else if (gender === 'woman' && (normalizedOrientation === 'lesbian' || normalizedOrientation === 'gay')) {
+                demographicKey = 'female_lesbian';
+            } else if (normalizedOrientation === 'bisexual' || normalizedOrientation === 'pansexual') {
+                demographicKey = 'bisexual';
+            } else {
+                demographicKey = 'default';
+            }
+            
+            console.log(`Using demographic key: ${demographicKey}`);
+            return characterSets[demographicKey] || characterSets.default;
+        }
+
+        // Updated vulnerability mappings function
+        function getPersonalizedVulnerabilities(archetypeName, gender, orientation) {
+            const characterSet = getCharacterSet(gender, orientation);
+            console.log('Character set:', characterSet);
+            
+            // Map archetype names to character set keys
+            const archetypeToKey = {
+                "Achiever": ["WALKING_TED_TALK", "POWERHOUSE_PARTNER"],
+                "Intellectual": ["WALKING_TED_TALK", "RULEBOOK_ROMANTIC"],
+                "Leader": ["POWERHOUSE_PARTNER", "THE_PUPPET_MASTER"],
+                "Explorer": ["THE_PUPPET_MASTER", "ICEBERG"],
+                "Rebel": ["WALKING_TED_TALK", "THE_PUPPET_MASTER","THE_ADDICT"],
+                "Peacemaker": ["THE_PUPPET_MASTER", "POWERHOUSE_PARTNER", "CASTLE_BUILDER"],
+                "Dreamer": ["CASTLE_BUILDER", "THE_PUPPET_MASTER", "POWERHOUSE_PARTNER"],
+                "Caregiver": ["TRAGIC_HERO", "CASTLE_BUILDER"]
+            };
+            
+            const vulnerabilityKeys = archetypeToKey[archetypeName] || ["WALKING_TED_TALK", "THE_PUPPET_MASTER"];
+            
+            // Build personalized vulnerabilities
+            const personalizedVulnerabilities = [];
+            
+            vulnerabilityKeys.forEach(key => {
+                const characters = characterSet[key] || characterSet.default[key];
+                
+                // Get the vulnerability template based on key
+                const template = getVulnerabilityTemplate(key);
+                
+                personalizedVulnerabilities.push({
+                    title: template.title,
+                    characters: characters,
+                    why: template.why,
+                    plotTwist: template.plotTwist,
+                    blindSpot: template.blindSpot
+                });
+            });
+            
+            return personalizedVulnerabilities;
+        }
+
+        // Vulnerability templates
+        function getVulnerabilityTemplate(key) {
+            const templates = {
+                "WALKING_TED_TALK": {
+                    title: "THE WALKING TED TALK",
                     why: "You love brilliance. You're drawn to people who seem like they have all the answers.",
                     plotTwist: "They're not sharing wisdom. They're building a fanbase with you as audience #1.",
                     blindSpot: "You confuse charisma with character. Intelligence ≠ emotional safety."
                 },
-                {
-                    title: "THE DRILL SERGEANT",
-                    characters: ["Captain Holt", "Coach Carter", "Major Kuldeep Singh", "Captain Levi"],
+                "RULEBOOK_ROMANTIC": {
+                    title: "THE RULEBOOK ROMANTIC",
                     why: "You love structure. Rules make you feel safe. And when they say 'discipline is love'—you believe it.",
                     plotTwist: "It's not structure. It's control dressed up in duty.",
                     blindSpot: "You mistake rigidity for reliability. But love shouldn't feel like a training camp."
-                }
-            ],
-            "Leader": [
-                {
+                },
+                "POWERHOUSE_PARTNER": {
                     title: "THE POWERHOUSE PARTNER",
-                    characters: ["Gustavo Fring", "Ra's al Ghul", "Xu Wenwu", "Killmonger"],
-                    why: "You like confidence, control, and people who take charge. You think they're strong enough to protect you—and maybe fix you too.",
-                    plotTwist: "They're not partnering with you. They're positioning themselves above you.",
-                    blindSpot:  "You confuse control with care. But being managed isn't being loved."
-                },
-                {
-                    title: "THE WALKING TED TALK",
-                    characters: ["Dr.Strange", "Light Yagami", "Sherlock Holmes", "Grand Admiral Thrawn"],
-                    why: "Smart is sexy to you. You love when someone can intellectually challenge you.",
-                    plotTwist: "They're not sharing wisdom. They're building a fanbase with you as audience #1.",
-                    blindSpot: "You think you're networking. Actually, you're just feeding their ego."
-                },
-                {
-                    title: "THE RAKE",
-                    characters: ["Damon Salvatore", "Chuck Bass", "Thomas Shelby", "Gustavo Fring"],
-                    why:  "They're confident, successful, and match your energy. You see them as an equal—someone who could be your power-couple partner.",
-                    plotTwist: "They don't want connection. They want conquest.",
-                    blindSpot: "You think you're too smart and strong to be manipulated. But your success just makes you a more impressive prize to win.",
-                }
-            ],
-            "Explorer": [
-                {
-                    title: "THE PUPPET MASTER",
-                    characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
-                    why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
-                    plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
-                },
-                {
-                    title: "THE ICEBERG",
-                    characters: ["Mr. Darcy", "Severus Snape", "Batman", "Gojo Satoru", "Sherlock Holmes"],
-                    why: "You love mystery. You want someone who's deep, calm, and hard to reach.",
-                    plotTwist: "They're not deep. They're just not showing up.",
-                    blindSpot: "You think still waters run deep. But these waters never text back."
-                }
-            ],
-            "Rebel": [
-                {
-                    title: "MASTER OF EVERYTHING",
-                    characters: ["Tony Stark", "Light Yagami", "Sherlock Holmes", "Grand Admiral Thrawn"],
-                    why: "You love brilliance. You're drawn to people who seem like they have all the answers.",
-                    plotTwist: "They're not sharing wisdom. They're building a fanbase with you as audience #1.",
-                    blindSpot: "You confuse charisma with character. Intelligence ≠ emotional safety."
-                },
-                {
-                    title: "THE RAKE",
-                    characters: ["Damon Salvatore", "Chuck Bass", "James Bond", "Casanova"],
-                    why: "They're smooth, magnetic, and just the right amount of broken. You love the rush.",
-                    plotTwist: "They don't want connection. They want conquest.",
-                    blindSpot: "You think you're the exception. You're actually chapter 12."
-                }
-            ],
-            "Peacemaker": [
-                {
-                    title: "THE RAKE",
-                    characters: ["Damon Salvatore", "Chuck Bass", "James Bond", "Casanova"],
-                    why: "They're smooth, magnetic, and just the right amount of broken. You love the rush.",
-                    plotTwist: "They don't want connection. They want conquest.",
-                    blindSpot: "You think you're the exception. You're actually chapter 12."
-                },
-                {
-                    title: "THE POWERHOUSE PARTNER",
-                    characters: ["Gustavo Fring", "Ra's al Ghul", "Xu Wenwu", "Killmonger"],
                     why: "You like confidence, control, and people who take charge. You think they're strong enough to protect you—and maybe fix you too.",
                     plotTwist: "They're not protecting you. They're managing you.",
                     blindSpot: "You confuse intensity for safety. But control isn't care."
                 },
-                {
-                    title: "THE PUPPET MASTER",
-                    characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula","Jafar"],
-                    why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
-                    plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
-                }
-            ],
-            "Dreamer": [
-                {
-                    title: "THE PUPPET MASTER",
-                    characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
-                    why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
-                    plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
+                "THE_PUPPET_MASTER": {
+                    title: "THE DANGEROUS CHARMER",
+                    why: "They're smooth, magnetic, and just the right amount of broken. You love the rush.",
+                    plotTwist: "They don't want connection. They want conquest.",
+                    blindSpot: "You think you're the exception. You're actually chapter 12."
                 },
-                {
-                    title: "THE FUTURE FAKER",
-                    characters: ["Ted Mosby", "Howl (Howl's Moving Castle)", "Christian", "Tommy Shelby"],
+                "ICEBERG": {
+                    title: "THE ICEBERG",
+                    why: "You love mystery. You want someone who's deep, calm, and hard to reach.",
+                    plotTwist: "They're not deep. They're just not showing up.",
+                    blindSpot: "You think still waters run deep. But these waters never text back."
+                },
+                "CASTLE_BUILDER": {
+                    title: "THE CASTLE BUILDER",
                     why: "They say all the right things. Future vacations, babies, matching tattoos—you melt.",
                     plotTwist: "They dream big, but disappear when it's time to act.",
                     blindSpot: "You confuse words with plans. Dreams with dates."
                 },
-                {
-                    title: "THE POWERHOUSE PARTNER",
-                    characters: ["Gustavo Fring", "Ra's al Ghul", "Xu Wenwu", "Killmonger"],
-                    why: "You like confidence, control, and people who take charge. You think they're strong enough to protect you—and maybe fix you too.",
-                    plotTwist: "They're not protecting you. They're managing you.",
-                    blindSpot: "You confuse intensity for safety. But control isn't care."
-                }
-            ],
-            "Caregiver": [
-                {
-                    title: "THE PUPPET MASTER",
-                    characters: ["Loki", "Klaus Mikaelson", "Light Yagami", "Azula"],
-                    why: "They're smart. They're intense. They say deep stuff like 'no one really knows me' and you're like... 'I will.' They cry once and suddenly you're emotionally adopted.",
-                    plotTwist: "They're not being vulnerable. They're being strategic. You think you're connecting. They're just testing which guilt-trip works best.",
-                    blindSpot: "You confuse 'drama' with 'depth.' You think you're healing them. Actually… you're stuck in Season 6 of their emotional soap opera."
-                },
-                {
+                "TRAGIC_HERO": {
                     title: "THE PERPEPTUAL VICTIM",
-                    characters: ["BoJack Horseman", "Eeyore", "Werther", "Rue Bennett","Sasuke (Naruto)"],
-                    why: "You're compassionate. You want to help, to rescue, to love someone back to life.",
+                    why: "They need you. Their pain is so raw, so real—you're convinced your love is the missing piece that will finally fix them.",
                     plotTwist: "They don't want change. They want sympathy on tap.",
-                    blindSpot: "You think you're their lifeline. But they keep pulling you under."
+                    blindSpot: "You think you're their lifeline. They don't want healing—they want a witness to their suffering."
                 }
-            ]
-        };
+            };
+            
+            return templates[key] || templates["WALKING_TED_TALK"];
+        }
 
         // Archetype trait descriptions
         const archetypeTraits = {
@@ -1308,7 +1368,7 @@
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzxhjLs4pcUVewAJCaRjK8aO4ukhP7MjoVmtpDCF7Htx_AwvZNsr3wuYh3fbhjj_wKq/exec';
 
         // Quiz state variables
-        let demographics = { ethnicity: '', orientation: '' };
+        let demographics = { ethnicity: '', gender: '', orientation: '' };
         let currentQuestion = "1";
         let scores = { emotional: 0, logical: 0, exploratory: 0 };
         let selectedChoices = new Set();
@@ -1325,6 +1385,7 @@
                 timestamp: new Date().toISOString(),
                 sessionId: generateSessionId(),
                 ethnicity: demographicsData.ethnicity,
+                gender: demographicsData.gender,
                 orientation: demographicsData.orientation,
                 archetype: quizResults?.archetype || '',
                 emotionalScore: quizResults?.emotional || 0,
@@ -1452,6 +1513,7 @@
                 backupData.push({
                     timestamp: new Date().toISOString(),
                     ethnicity: demographicsData.ethnicity,
+                    gender: demographicsData.gender,
                     orientation: demographicsData.orientation,
                     archetype: quizResults?.archetype || '',
                     scores: quizResults || {}
@@ -1498,18 +1560,20 @@
             
             // Get the selected values
             const ethnicity = document.getElementById('ethnicity-select').value;
+            const gender = document.getElementById('gender-select').value;
             const orientation = document.getElementById('orientation-select').value;
             
             console.log('Selected values:', { ethnicity, orientation });
             
             // Check if both are selected
-            if (!ethnicity || !orientation) {
-                alert('Please select both fields to continue');
+            if (!ethnicity || !gender || !orientation) {
+                alert('Please select all fields to continue');
                 return;
             }
             
             // Store the values
             demographics.ethnicity = ethnicity;
+            demographics.gender = gender;
             demographics.orientation = orientation;
             console.log('Demographics stored:', demographics);
 
@@ -1523,6 +1587,7 @@
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'demographics_submitted', {
                     'ethnicity': ethnicity,
+                    'gender': gender,
                     'orientation': orientation,
                     'event_category': 'quiz_flow',
                     'event_label': 'demographics_complete'
@@ -1530,6 +1595,7 @@
                 
                 gtag('set', 'user_properties', {
                     'quiz_ethnicity': ethnicity,
+                    'quiz_gender': gender,
                     'quiz_orientation': orientation
                 });
             }
@@ -1742,7 +1808,13 @@
             console.log('Showing results...');
             
             const archetype = calculateArchetype();
-            const vulnerabilities = vulnerabilityMappings[archetype.name] || [];
+            const vulnerabilities = getPersonalizedVulnerabilities(
+                archetype.name, 
+                demographics.gender, 
+                demographics.orientation
+            );
+            
+            console.log('Personalized vulnerabilities:', vulnerabilities);
             const traits = archetypeTraits[archetype.name] || { keywords: ""} || { description: "" };
             
             console.log('Archetype:', archetype);
@@ -1764,6 +1836,7 @@
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'quiz_completed', {
                     'ethnicity': demographics.ethnicity,
+                    'gender': demographics.gender,
                     'orientation': demographics.orientation,
                     'archetype_result': archetype.name,
                     'emotional_score': scores.emotional,
@@ -1857,7 +1930,7 @@
                         </p>
                         <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                             <a href="https://6851c5d59fdb71b6babeee51--partner-assessment-tool.netlify.app" style="background: linear-gradient(45deg, #e88896cf, #110cff73);; color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; display: inline-block; font-weight: bold;">Talk to Our Relationship Coach</a>
-                            <a href="https://tally.so/r/w8gx25" style="background: rgba(0, 0, 0, 0.1); color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; display: inline-block; border: 2px solid rgba(255, 255, 255, 0.3);">Give Feedback</a>
+                            <a href="https://tally.so/r/w8gx25" style="background: rgba(0, 0, 0, 0.18); color: black; padding: 15px 30px; border-radius: 30px; text-decoration: none; display: inline-block; border: 2px solid rgba(255, 255, 255, 0.3);">Give Feedback</a>
                         </div>
                     </div>
                 </div>
@@ -1939,12 +2012,14 @@
                     
                     // Get demographics safely
                     let userEthnicity = 'unknown';
+                    let userGender = 'unknown'
                     let userOrientation = 'unknown';
                     try {
                         if (typeof demographics !== 'undefined' && demographics) {
                             userEthnicity = demographics.ethnicity || 'unknown';
+                            userGender = demographics.gender || 'unknown';
                             userOrientation = demographics.orientation || 'unknown';
-                            console.log('✅ Got demographics:', { userEthnicity, userOrientation });
+                            console.log('✅ Got demographics:', { userEthnicity, userGender, userOrientation });
                         } else {
                             console.warn('⚠️ Demographics not available');
                         }
@@ -1962,6 +2037,7 @@
                         'cta_destination': clickedLink.href,
                         'user_archetype': userArchetype,
                         'user_ethnicity': userEthnicity,
+                        'user_sexual': userSexual,
                         'user_orientation': userOrientation,
                         'timestamp': new Date().toISOString()
                     };
@@ -1996,7 +2072,7 @@
                     console.log('🎉 CTA CLICK TRACKING COMPLETE!', {
                         timestamp: new Date().toISOString(),
                         archetype: userArchetype,
-                        demographics: { userEthnicity, userOrientation },
+                        demographics: { userEthnicity, userGender, userOrientation },
                         destination: clickedLink.href
                     });
                     
